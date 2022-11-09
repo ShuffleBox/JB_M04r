@@ -33,9 +33,11 @@ def main(args):
             export_fields["published"] = episode["published"]
             export_fields["links"] = episode["links"]
             export_fields["episode"] = episode["link"].split('/')[-1]
-
+            
+            #ipdb.set_trace()
+            
             pprint(export_fields)
-            filename = feed["feed"]["title"].lower() + '_' + str(export_fields["episode"])
+            filename = feed["feed"]["title"].lower().replace(" ", "_") + '_' + str(export_fields["episode"])
             with open(file_path + '/' + filename + '.txt', 'w') as f:
                 json.dump(export_fields, f, ensure_ascii=False)
             
@@ -46,11 +48,11 @@ def main(args):
     else:
       print("Found nothing in feed.  That's kinda weird.")
 
-    filename = feed["feed"]["title"].lower() + '_whisper_json'
+    filename = feed["feed"]["title"].lower().replace(" ", "_") + '_whisper_json'
     with open(file_path + '/' + filename + '.txt', 'w') as f:
         json.dump(url_list, f, ensure_ascii=False)
     
-    filename = feed["feed"]["title"].lower() + '_whisper_ingest'
+    filename = feed["feed"]["title"].lower().replace(" ", "_") + '_whisper_ingest'
     with open(file_path + '/' + filename + '.txt', 'w') as f:
         for url in url_list:
             f.write("%s\n" % url)
