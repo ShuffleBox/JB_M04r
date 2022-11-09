@@ -46,9 +46,14 @@ def main(args):
     else:
       print("Found nothing in feed.  That's kinda weird.")
 
+    filename = feed["feed"]["title"].lower() + '_whisper_json'
+    with open(file_path + '/' + filename + '.txt', 'w') as f:
+        json.dump(url_list, f, ensure_ascii=False)
+    
     filename = feed["feed"]["title"].lower() + '_whisper_ingest'
     with open(file_path + '/' + filename + '.txt', 'w') as f:
-                json.dump(url_list, f, ensure_ascii=False)
+        for url in url_list:
+            f.write("%s\n" % url)
     ipdb.set_trace()
 
 
