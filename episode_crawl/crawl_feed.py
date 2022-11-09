@@ -1,3 +1,11 @@
+'''
+- Retrieves a Jupiter Broadcasting RSS feed from fireside.fm
+- Parses info about episodes that we may want to use in other processes like search
+    or some sort of persistence for web presentation.
+- Exports episode info files
+- Exports list of direct download URLs for batch processing
+'''
+
 import argparse
 import requests
 from requests.auth import HTTPBasicAuth
@@ -10,7 +18,6 @@ from pprint import pprint
 import ipdb
 
 def main(args):
-    #FILE_PATH = os.path.dirname(os.path.abspath(__file__))  #fine for development, but change to http pub dir
     file_path = args.destination
     rss_feed_url = args.feed
 
@@ -39,7 +46,7 @@ def main(args):
     else:
       print("Found nothing in feed.  That's kinda weird.")
 
-    filename = feed["feed"]["title"].lower() + '_whisper_list'
+    filename = feed["feed"]["title"].lower() + '_whisper_ingest'
     with open(file_path + '/' + filename + '.txt', 'w') as f:
                 json.dump(url_list, f, ensure_ascii=False)
     ipdb.set_trace()
