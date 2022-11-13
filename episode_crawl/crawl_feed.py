@@ -25,39 +25,37 @@ def main(args):
     pprint(feed.keys())
     url_list = []
     if len(feed["entries"]) > 0:
-      for episode in feed["entries"]:
-            export_fields = {}
-            export_fields["show"] = feed["feed"]["title"]
-            export_fields["ep_title"] = episode["title"]
-            export_fields["summary"] = episode["summary"]
-            export_fields["published"] = episode["published"]
-            export_fields["links"] = episode["links"]
-            export_fields["episode"] = episode["link"].split('/')[-1]
+        for episode in feed["entries"]:
+              export_fields = {}
+              export_fields["show"] = feed["feed"]["title"]
+              export_fields["ep_title"] = episode["title"]
+              export_fields["summary"] = episode["summary"]
+              export_fields["published"] = episode["published"]
+              export_fields["links"] = episode["links"]
+              export_fields["episode"] = episode["link"].split('/')[-1]
             
-            #ipdb.set_trace()
+              #ipdb.set_trace()
             
-            pprint(export_fields)
-            filename = feed["feed"]["title"].lower().replace(" ", "_") + '_' + str(export_fields["episode"])
-            with open(file_path + '/' + filename + '.txt', 'w') as f:
-                json.dump(export_fields, f, ensure_ascii=False)
+              pprint(export_fields)
+              filename = feed["feed"]["title"].lower().replace(" ", "_") + '_' + str(export_fields["episode"])
+              with open(file_path + '/' + filename + '.txt', 'w') as f:
+                  json.dump(export_fields, f, ensure_ascii=False)
             
-            for link in export_fields["links"]:
-                if link["type"] == "audio/mp3" or link["type"] == "audio/mpeg":
-                    url_list.append(link["href"])
+              for link in export_fields["links"]:
+                  if link["type"] == "audio/mp3" or link["type"] == "audio/mpeg":
+                      url_list.append(link["href"])
+
+        filename = feed["feed"]["title"].lower().replace(" ", "_") + '_whisper_json'
+        with open(file_path + '/' + filename + '.txt', 'w') as f:
+            json.dump(url_list, f, ensure_ascii=False)
+
+        filename = feed["feed"]["title"].lower().replace(" ", "_") + '_whisper_ingest'
+        with open(file_path + '/' + filename + '.txt', 'w') as f:
+            for url in url_list:
+                f.write("%s\n" % url)
 
     else:
       print("Found nothing in feed.  That's kinda weird.")
-
-    filename = feed["feed"]["title"].lower().replace(" ", "_") + '_whisper_json'
-    with open(file_path + '/' + filename + '.txt', 'w') as f:
-        json.dump(url_list, f, ensure_ascii=False)
-    
-    filename = feed["feed"]["title"].lower().replace(" ", "_") + '_whisper_ingest'
-    with open(file_path + '/' + filename + '.txt', 'w') as f:
-        for url in url_list:
-            f.write("%s\n" % url)
-    ipdb.set_trace()
-
 
 
 if __name__ == '__main__':
