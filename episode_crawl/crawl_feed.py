@@ -42,7 +42,7 @@ def main(args):
                 json.dump(export_fields, f, ensure_ascii=False)
             
             for link in export_fields["links"]:
-                if link["type"] == "audio/mp3":
+                if link["type"] == "audio/mp3" or link["type"] == "audio/mpeg":
                     url_list.append(link["href"])
 
     else:
