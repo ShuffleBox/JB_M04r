@@ -1,0 +1,6 @@
+Virtualenv setup has issues finding nvidia cuda stuff in 
+site packages
+
+add the following to .bashrc
+export LD_LIBRARY_PATH=/path/to/py3/lib/python3.10/site-packages/nvidia/cublas/lib/:${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
+export LD_LIBRARY_PATH=/path/to/py3/lib/python3.10/site-packages/nvidia/cudnn/lib/:${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
