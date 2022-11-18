@@ -12,3 +12,5 @@ Apparatus to add new features to JupiterBroadcasting content presenation
 
 #scratch space
 crawl_feed.py - retrieves show feed, filters out fields into json in txt files, dumps URLs to MP3s that we could start to process
+
+python crawl_feed.py -d ~/dev/working/linux-unplugged -f https://linuxunplugged.com/rss
