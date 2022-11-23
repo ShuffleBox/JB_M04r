@@ -1,5 +1,5 @@
 # JB_M04r
-Apparatus to add new features to JupiterBroadcasting content presenation
+Apparatus to parse RSS feeds, and loop process episodes with Whisper.
 
 
 # Things to Try
